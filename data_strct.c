@@ -2,41 +2,44 @@
 #include<string.h>
 #include<stdlib.h>
 
-struct ASCII
+#define Size_of_Arrays 100
+struct ASCII //character and it's ASCII value.
 	{
 		char character[100];
 		int ascno[100];
 	};
+char Cipher1[Size_of_Arrays];
 
-	
-void Char_to_ASCII();
+void Char_to_ASCII(char *p, int size);
 
 int main(){
-	Char_to_ASCII();
+	printf("type something:");
+	scanf("%[^\n]",Cipher1);
+	
+	Char_to_ASCII(&Cipher1,strlen(Cipher1));
 	
 }
 	
 		
-void Char_to_ASCII(){
+void Char_to_ASCII(char *p, int size){
 	
-	char a,input[100];
+	char a;
 	int i,b;
 	struct ASCII x;
 	
-	printf("Type something eiei: ");
-	scanf("%[^\n]",input);
-	
-	for(i=0; i<strlen(input); i++)
+	for(i=0; i<size; i++)
 	{
-		a = input[i];
+		a = *p;
 		x.character[i] = a;
 		
-		b = input[i];
+		b = *p;
 		x.ascno[i] =  b;
+
+		p++;
 	}
 	
 	printf("ASCII -> ");
-	for(i=0; i<strlen(input); i++)
+	for(i=0; i<size; i++)
 	{
 		printf("%c:",x.character[i]);
 		printf("%d ",x.ascno[i]);
