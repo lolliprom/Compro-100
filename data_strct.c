@@ -5,10 +5,9 @@
 #define Size_of_Arrays 100
 struct ASCII //character and it's ASCII value.
 	{
-		char character[100];
-		int ascno[100];
+		char character[200];
+		int ascno[200];
 	};
-
 int Char_to_ASCII(char *p, int size);
 void ASCII_to_Matrix(int rowsize, int size);
 int OBFMatrix[Size_of_Arrays][4] ;
@@ -97,6 +96,5 @@ void ASCII_to_Matrix(int rowsize, int size)
 		}
 	}
 }
-
 
 
