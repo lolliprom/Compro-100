@@ -30,8 +30,8 @@ int main()
                 printf("%d",Generator_Matrix[i][j]);
             }
             printf("\n");
-            }
 
+            }
 
     return 0;
 }

@@ -100,8 +100,4 @@ int main()
             }
 
     MultiplyMatrix();
-
-
-
-
 }

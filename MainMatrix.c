@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #include<time.h>
 
-#define Size_of_Arrays 100
+#define Size_of_Arrays 300
 struct ASCII //character and it's ASCII value.
 	{
 		char character[200];
@@ -14,16 +14,22 @@ int setofnumbers[8][4]={{8,1,8,9},{5,5,0,9},{6,3,3,1},{5,4,5,4},{8,0,4,3},{8,9,9
 int Generator_Matrix[4][4];
 int Row_Pos_Matrix[4];
 int Mutiplied_Matrix[1][4];
-int i,j,k,l=0;
+int arr[1][4];
+int i,j,k,l=0,swap,final_count=0;
 
-void MultiplyMatrix(int a[1][4])
+void MultiplyMatrix(int (*a)[1][4])
 {
     int m = 1;
     int n = 4;
     int o = 4;
     int p = 4;
-    int sum=0,i,j,k,Mutiplied_Matrix[1][4];
+    int sum=0,i,j,h;
 
+    for(i=0; i<4; i++){
+        printf("%d ",(*a)[0][i]);
+
+    }
+    printf("\n");
 	for(i=0; i<m; i++)
 		for(j=0; j<p; j++)
 			Mutiplied_Matrix[i][j]=0;
@@ -33,13 +39,15 @@ void MultiplyMatrix(int a[1][4])
 		for(j=0; j<p; j++)
 		{
 			sum=0;
-			for(k=0;k<n;k++)
+			for(h=0;h<n;h++)
 			{
-				sum = sum+a[i][k]*Generator_Matrix[k][j];
+				sum = sum+((*a)[i][h])*Generator_Matrix[h][j];
 			}
 			Mutiplied_Matrix[i][j]=sum;
+
 		}
 	}
+    printf("\n");
 
 }
 
@@ -180,8 +188,9 @@ int main(){
 
     int Det;
     int (*p)[4][4];
-    p = &Generator_Matrix;
-    int *final = calloc(strlen(Cipher1)+(count_row*4), sizeof(int));
+    //p = &Generator_Matrix;
+    int *final = malloc(sizeof(int)*Size_of_Arrays);
+    int *position = malloc(sizeof(int)*(4*count_row));
 
     for(k=0; k<=count_row; k++){
         //random 4x4 matrix
@@ -189,12 +198,13 @@ int main(){
         Det = 0;
 
         while(Det == 0){
+            p = &Generator_Matrix;
             generate_matrix(p);
             Det = det4x4(Generator_Matrix);
 
             printf("\n4x4 Matrix is:\n");
-         for (int i=0;i<4;i++){
-            for (int j=0;j<4;j++){
+            for (int i=0;i<4;i++){
+                for (int j=0;j<4;j++){
                 printf("%d",Generator_Matrix[i][j]);
             }
             printf("\n");
@@ -210,24 +220,40 @@ int main(){
         }
         //create array 1x4 for multiplying
 
-        int arr[1][4];
+        int (*ary)[1][4];
+        ary = &arr;
+
         for(j=0; j<=3; j++){
-            arr[1][j] = OBFMatrix[k][j];
+            arr[0][j] = OBFMatrix[k][j];
         }
 
-        MultiplyMatrix(arr[1][4]);
+        MultiplyMatrix(ary);
+        printf("Cipher for array is :");
         for(j=0; j<=3; j++){
+            printf("%d ",Mutiplied_Matrix[0][j]);
             final[l] = Mutiplied_Matrix[0][j];
+            final_count++;
+            position[l] = Row_Pos_Matrix[j];
             l++;
         }
+        printf("%d%d%d%d\n",Row_Pos_Matrix[0],Row_Pos_Matrix[1],Row_Pos_Matrix[2],Row_Pos_Matrix[3]);
 
     }
 
     //print result
-    printf("Cipher test is :");
-    for(j=0; j<=strlen(Cipher1)+(4*count_row); j++){
-            printf("%d",final[j]);
+    printf("Cipher text is :");
+    int pos=0;
+    for(i=0;i<=final_count-1;i++){
+        printf("%d ",final[i]);
+        if(((i+1)%4) == 0){
+            for(j=0;j<=3;j++){
+            printf("%d",position[pos]);
+            pos++;
+            }
+            printf(" ");
         }
+    }
     free(final);
+    free(position);
 }
 		

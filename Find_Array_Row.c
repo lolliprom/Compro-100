@@ -6,7 +6,7 @@ int setofnumbers[8][4]={{8,1,8,9},{5,5,0,9},{6,3,3,1},{5,4,5,4},{8,0,4,3},{8,9,9
 int Generator_Matrix[4][4];
 /*int (*p)[4][4];
 p = &Generator_Matrix;*/
-int Row_Pos[4];
+int Row_Pos_Matrix[4];
 
 
 void Find_Row_Pos(int matrix[4][4]){
