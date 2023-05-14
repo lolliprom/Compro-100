@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 
 #define MAX_WORDS 1000
 #define MAX_WORD_LENGTH 100
@@ -46,15 +45,6 @@ void Read_File(char* file_name, char words[][MAX_WORD_LENGTH], int* num_words) {
     }
     *num_words = i;
     fclose(File_Pointer);
-}
-
-void Encode_Cipher(char *filename_input,char *filename_output){
-    int key = 0;
-    while()
-}
-
-void Decode_Cipher(){
-
 }
 
 int main(){
