@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <math.h>
-#include<string.h>
+#include <string.h>
 #include <stdlib.h>
-int Ciphertxt[1000][4];
+float Ciphertxt[1000][4];
 int Row_Code[250][4];
 int setofnumbers[8][4]={{8,1,8,9},{5,5,0,9},{6,3,3,1},{5,4,5,4},{8,0,4,3},{8,9,9,0},{1,9,7,2},{0,7,3,4}};
 int FBFMatrix[4][4];
-int Mutiplied_Matrix[4][4];
-int arr2[1][4];
+float Inverse[4][4];
+int adjoint[4][4];
+int detSum;
+float Mutiplied_Matrix2[1][4]; //already had in Matrix_encode
+float arr2[1][4]; //already had in Matrix_encode
 int i,j,FBF_count=0;
 
 void Create_FBFMatrix(){
@@ -22,22 +25,23 @@ void Create_FBFMatrix(){
     FBF_count++;
 }
 
-void MultiplyMatrix2(int (*a)[1][4])
+void MultiplyMatrix2(float (*a)[1][4])
 {
     int m = 1;
     int n = 4;
     int o = 4;
     int p = 4;
-    int sum=0,i,j,h;
+    int h;
+    float sum = 0;
 
-    for(i=0; i<4; i++){
+    /*for(i=0; i<4; i++){
         printf("%d ",(*a)[0][i]);
 
-    }
+    }*/
     printf("\n");
 	for(i=0; i<m; i++)
 		for(j=0; j<p; j++)
-			Mutiplied_Matrix[i][j]=0;
+			Mutiplied_Matrix2[i][j]=0;
 			
 	for(i=0; i<m; i++)
 	{
@@ -46,13 +50,114 @@ void MultiplyMatrix2(int (*a)[1][4])
 			sum=0;
 			for(h=0;h<n;h++)
 			{
-				sum = sum+((*a)[i][h])*FBFMatrix[h][j];
+				sum = sum+((*a)[i][h])*Inverse[h][j]; //check variable type for operation ด้วย
 			}
-			Mutiplied_Matrix[i][j]=sum;
+			Mutiplied_Matrix2[i][j]=sum;
+            printf("%f ",Mutiplied_Matrix2[i][j]); //check multiplication
 		}
 	}
     printf("\n");
 
+}
+
+int det3x3(int matrix[4][4], int i, int j)
+
+{
+    int submatrix[3][3];
+    int k, l, row, col;
+    for (k = 0, row = 0; k < 4; k++)
+    {
+        if (k == i) continue;
+        for (l = 0, col = 0; l < 4; l++)
+        {
+            if (l == j) continue;
+            submatrix[row][col] = matrix[k][l];
+            col++;
+        }
+        row++;
+    }
+    /*printf("\nSub-matrix is :");
+    for (i = 0; i < 3; i++) {
+       for (j = 0; j < 3; j++) {
+           printf("%d ", submatrix[i][j]);
+       }
+       printf("\n");
+    }*/
+    return submatrix[0][0]*((submatrix[1][1]*submatrix[2][2])-(submatrix[2][1]*submatrix[1][2]))-submatrix[0][1]*(submatrix[1][0]*submatrix[2][2]-submatrix[2][0]*submatrix[1][2])+submatrix[0][2]*(submatrix[1][0]*submatrix[2][1]-submatrix[2][0]*submatrix[1][1]);
+}
+
+void adjointcal(int matrix[4][4])
+{
+    int i,j;
+    int cofactor=0;
+    int matrixBeforetranspose[4][4];
+    for(i=0; i<4; i++)
+    {
+        for(j=0; j<4; j++)
+        {
+            cofactor= ((i+j)%2==0 ? 1:-1)*det3x3(matrix,i,j);
+            matrixBeforetranspose[i][j]= cofactor;
+        }
+    }
+    /*printf("\nNew-matrix before transpose is :\n");
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 4; j++) {
+            printf("%d ", newmatrix[i][j]);
+        }
+        printf("\n");
+    }*/
+    for(i=0; i<4; i++)
+    {
+        for(j=0; j<4; j++)
+        {
+            adjoint[i][j]=matrixBeforetranspose[j][i];
+        }
+    }
+    printf("\nAdjoint matrix is:\n");
+    for (i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            printf("%d ", adjoint[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void det4x4(int matrix[4][4])
+{
+    int det=0;
+    int j;
+    for (j=0; j<4; j++)
+    {
+        detSum += matrix[0][j]*(j%2==0 ? 1:-1)*det3x3(matrix,0,j);
+    }
+    //return det;
+}
+
+void inverseCal(int adjoint[4][4])
+
+{
+    int row,column,det;
+    //det=det4x4(matrix);
+    for (row=0; row<4; row++)
+    {
+        for(column=0; column<4; column++)
+        {
+            //printf("%d\n",detSum);
+            Inverse[row][column]= (float)adjoint[row][column]/(float)detSum;
+            //printf("\nadjoint: %d det: %d",adjoint[row][column],detSum);
+        }
+    }
+    printf("\nInverse matrix is:\n");
+    for (row = 0; row < 4; row++)
+    {
+        for (column = 0; column < 4; column++)
+        {
+            printf("%10f ", Inverse[row][column]);
+        }
+        printf("\n");
+    }
 }
 
 int main(){
@@ -69,8 +174,8 @@ int main(){
     while(!feof(file)){
         if((pos+1)%5 != 0){
             for(i=0; i<4; i++){
-                fscanf(file,"%d ",&Ciphertxt[row2_count][i]);
-                printf("%d ",Ciphertxt[row2_count][i]);
+                fscanf(file,"%f ",&Ciphertxt[row2_count][i]);
+                printf("%f ",Ciphertxt[row2_count][i]);
                 word2_count++;
                 pos++;
             }
@@ -87,13 +192,23 @@ int main(){
     printf("\n");
 
     Create_FBFMatrix();
-    int (*ary2)[1][4];
-    ary2 = &arr2;
 
+    float (*ary2)[1][4];
+    ary2 = &arr2;
+    printf("1 by 4 Matrix is:");
     for(j=0; j<=3; j++){
         arr2[0][j] = Ciphertxt[0][j];
+        printf("%f ", arr2[0][j]);
     }
-    void MultiplyMatrix2(ary2);
+     printf("\n");
+
+    det4x4(FBFMatrix);
+    printf("Determinant of the matrix is %d",detSum);
+    adjointcal(FBFMatrix);
+    inverseCal(adjoint);
+    printf("ResultMatrix: ");
+    MultiplyMatrix2(ary2); //bug
+
 
     fclose(file);
     return 0;
