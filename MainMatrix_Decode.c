@@ -10,8 +10,9 @@ float Inverse[4][4];
 int adjoint[4][4];
 int detSum;
 float Mutiplied_Matrix2[1][4]; //already had in Matrix_encode
-float arr2[1][4]; //already had in Matrix_encode
-int i,j,FBF_count=0;
+float arr2[1][4];//already had in Matrix_encode
+int Result_Matrix[1000][4];
+int i,j,k,FBF_count=0;
 
 void Create_FBFMatrix(){
     printf("FBFMatrix %d:\n",FBF_count+1);
@@ -164,6 +165,7 @@ int main(){
     FILE *file;
     file = fopen("Ciphereiei.txt","r");
     int word2_count=0,row2_count=0,pos=0;
+    //float *decode = malloc(sizeof(float)*word2_count);
 
     if(file == NULL){
         printf("Error in opening!");
@@ -191,25 +193,55 @@ int main(){
     }
     printf("\n");
 
-    Create_FBFMatrix();
-
     float (*ary2)[1][4];
     ary2 = &arr2;
-    printf("1 by 4 Matrix is:");
-    for(j=0; j<=3; j++){
-        arr2[0][j] = Ciphertxt[0][j];
-        printf("%f ", arr2[0][j]);
+    float **decode = malloc(sizeof(float*)*word2_count);
+    float *decode0 = malloc(sizeof(float*)*3);
+    float *decode1 = malloc(sizeof(float*)*3);
+    float *decode2 = malloc(sizeof(float*)*3);
+    float *decode3 = malloc(sizeof(float*)*3);
+    decode[0] = decode0;
+    decode[1] = decode0;
+    decode[2] = decode0;
+    decode[3] = decode0;
+
+    int x = row2_count;
+    int Result_Matrix[1000][4];
+
+
+    for(k=0; k<=row2_count-1; k++){
+        detSum =0;
+        Create_FBFMatrix();
+        printf("1 by 4 Matrix is:");
+        for(j=0; j<=3; j++){
+            arr2[0][j] = Ciphertxt[0][j];
+            printf("%f ", arr2[0][j]);
+        }
+        printf("\n");
+
+        det4x4(FBFMatrix);
+        printf("Determinant of the matrix is %d",detSum);
+        adjointcal(FBFMatrix);
+        inverseCal(adjoint);
+        printf("ResultMatrix: ");
+        MultiplyMatrix2(ary2);
+        for(i=0; i<=3; i++){
+            //decode[k][i] = Mutiplied_Matrix2[0][i];
+            Result_Matrix[k][i] = (int)round(Mutiplied_Matrix2[0][i]);
+        }
     }
-     printf("\n");
 
-    det4x4(FBFMatrix);
-    printf("Determinant of the matrix is %d",detSum);
-    adjointcal(FBFMatrix);
-    inverseCal(adjoint);
-    printf("ResultMatrix: ");
-    MultiplyMatrix2(ary2); //bug
+    printf("Check decodematrix: \n");
+    for(j=0; j<=row2_count-1; j++){
+        for(i=0; i<=3; i++){
+            printf("%d ",Result_Matrix[j][i]);
+        }
+        printf("\n");
+    }
 
+    
 
     fclose(file);
+    free(decode);
     return 0;
 }
