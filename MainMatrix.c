@@ -26,10 +26,10 @@ void MultiplyMatrix(int (*a)[1][4])
     int sum=0,i,j,h;
 
     for(i=0; i<4; i++){
-        printf("%d ",(*a)[0][i]);
+        //printf("%d ",(*a)[0][i]);
 
     }
-    printf("\n");
+    //printf("\n");
 	for(i=0; i<m; i++)
 		for(j=0; j<p; j++)
 			Mutiplied_Matrix[i][j]=0;
@@ -72,13 +72,13 @@ int Char_to_ASCII(char *OBF, int size)
 		OBF++;
 	}
 	
-	printf("ASCII -> ");
-	for(i=0; i<size; i++)
+	//printf("ASCII -> ");
+	/*for(i=0; i<size; i++)
 	{
 		printf("%c:",x.character[i]);
 		printf("%d ",x.ascno[i]);
 	}
-	printf("\n");
+	printf("\n");*/
 	return count;
 }
 
@@ -115,14 +115,14 @@ void ASCII_to_Matrix(int rowsize, int size)
 		}
 	}
 	
-	for(i=0;i<=rowsize; i++)
+	/*for(i=0;i<=rowsize; i++)
 	{
 	
 		for(j=0;j<=3; j++)
 		{
 			printf("Array[%d][%d] = %d\n",i,j,OBFMatrix[i][j]);
 		}
-	}
+	}*/
 }
 
 void generate_matrix(int (*x)[4][4]){
@@ -186,38 +186,37 @@ int main(){
 	ASCII_to_Matrix(count_row,strlen(Cipher1));
 
 
-    int Det;
+    int Determinant;
     int (*p)[4][4];
-    //p = &Generator_Matrix;
     int *final = malloc(sizeof(int)*Size_of_Arrays);
     int *position = malloc(sizeof(int)*(4*count_row));
 
     for(k=0; k<=count_row; k++){
         //random 4x4 matrix
         //check det of 4x4 matrix ,if det is 0 random again!
-        Det = 0;
+        Determinant = 0;
 
-        while(Det == 0){
+        while(Determinant == 0){
             p = &Generator_Matrix;
             generate_matrix(p);
-            Det = det4x4(Generator_Matrix);
+            Determinant = det4x4(Generator_Matrix);
 
-            printf("\n4x4 Matrix is:\n");
-            for (int i=0;i<4;i++){
+            //printf("\n4x4 Matrix is:\n");
+            /*for (int i=0;i<4;i++){
                 for (int j=0;j<4;j++){
                 printf("%d",Generator_Matrix[i][j]);
             }
             printf("\n");
             }
-        printf("Determinant is %d",Det);
+        printf("Determinant is %d",Determinant);*/
         }
 
         //find row position of matrix
         Find_Row_Pos(Generator_Matrix);
-        printf("\nRow position:\n");
-        for(i=0;i<=3;i++){
+        //printf("\nRow position:\n");
+        /*for(i=0;i<=3;i++){
             printf("%d:%d\n",i,Row_Pos_Matrix[i]);
-        }
+        }*/
         //create array 1x4 for multiplying
 
         int (*ary)[1][4];
@@ -228,15 +227,15 @@ int main(){
         }
 
         MultiplyMatrix(ary);
-        printf("Cipher for array is :");
+        //printf("Cipher for array is :");
         for(j=0; j<=3; j++){
-            printf("%d ",Mutiplied_Matrix[0][j]);
+            //printf("%d ",Mutiplied_Matrix[0][j]);
             final[l] = Mutiplied_Matrix[0][j];
             final_count++;
             position[l] = Row_Pos_Matrix[j];
             l++;
         }
-        printf("%d%d%d%d\n",Row_Pos_Matrix[0],Row_Pos_Matrix[1],Row_Pos_Matrix[2],Row_Pos_Matrix[3]);
+        //printf("%d%d%d%d\n",Row_Pos_Matrix[0],Row_Pos_Matrix[1],Row_Pos_Matrix[2],Row_Pos_Matrix[3]);
 
     }
 
@@ -255,5 +254,6 @@ int main(){
     }
     free(final);
     free(position);
+    return 0;
 }
 		
