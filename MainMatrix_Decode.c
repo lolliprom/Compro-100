@@ -195,16 +195,6 @@ int main(){
 
     float (*ary2)[1][4];
     ary2 = &arr2;
-    /*float **decode = malloc(sizeof(float*)*word2_count);
-    float *decode0 = malloc(sizeof(float*)*3);
-    float *decode1 = malloc(sizeof(float*)*3);
-    float *decode2 = malloc(sizeof(float*)*3);
-    float *decode3 = malloc(sizeof(float*)*3);
-    decode[0] = decode0;
-    decode[1] = decode0;
-    decode[2] = decode0;
-    decode[3] = decode0;*/
-
     int x = row2_count;
     int Result_Matrix[1000][4];
 
