@@ -24,18 +24,18 @@ void Read_File(char* file_name, char words[][MAX_WORD_LENGTH], int* num_words) {
                 strcpy(words[i], word);
                 i++;
                 j = 0;
-                if (i >= MAX_WORDS) {
-                    printf("Error: too many words in file.\n");
-                    exit(1);
-                }
+                // if (i >= MAX_WORDS) {
+                //     printf("Error: too many words in file.\n");
+                //     exit(1);
+                // }
             }
         } else {
             word[j] = ch;
             j++;
-            if (j >= MAX_WORD_LENGTH) {
-                printf("Error: word too long.\n");
-                exit(1);
-            }
+            // if (j >= MAX_WORD_LENGTH) {
+            //     printf("Error: word too long.\n");
+            //     exit(1);
+            // }
         }
     }
     if (j > 0) {
@@ -48,5 +48,5 @@ void Read_File(char* file_name, char words[][MAX_WORD_LENGTH], int* num_words) {
 }
 
 int main(){
-
+    
 }
