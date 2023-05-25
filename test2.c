@@ -445,14 +445,14 @@ int main() {
                 if((position+1)%5 != 0){
                     for(i=0; i<4; i++){
                         fscanf(Decode_file,"%f ",&Ciphertxt[row2_count][i]);
-                        //printf("%f ",Ciphertxt[row2_count][i]);
+                        printf("%f ",Ciphertxt[row2_count][i]);
                         word2_count++;
                         position++;
                     }
                 }else{
                     for(i=0; i<4; i++){
                         fscanf(Decode_file,"%1d",&Row_Code[row2_count][i]);
-                        //printf("%d",Row_Code[row2_count][i]);
+                        printf("%d",Row_Code[row2_count][i]);
                     }
                     row2_count++;
                     position++;
@@ -497,7 +497,7 @@ int main() {
             }
 
             k = 0;
-            char ascToword[Size_of_Arrays+1];
+            char ascToword[Size_of_Arrays];
             for (j=0; j<=row2_count-1; j++)
             {
                 for (i=0; i<=3; i++)
@@ -514,10 +514,11 @@ int main() {
             printf("\n");
             fclose(Decode_file);
             decrypt(ascToword, decrypted_text); // (Array name of encrypted messages, Array name to store decrypted messages)
-            printf("Plaintext is (Decrypted Text): %s\n", decrypted_text);
+            printf("Decrypted Text: %s\n", decrypted_text);
             break;
-        }
-        else{
+        }  
+        else
+        {
             printf("Type only 1 or 2!\n");
         }
     }
