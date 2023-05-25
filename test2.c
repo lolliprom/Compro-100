@@ -42,7 +42,7 @@ void MultiplyMatrix(int (*a)[1][4])
     int o = 4;
     int p = 4;
     int sum=0,i,j,h;
-
+    
 	for(i=0; i<m; i++)
 		for(j=0; j<p; j++)
 			Mutiplied_Matrix[i][j]=0;
@@ -60,8 +60,6 @@ void MultiplyMatrix(int (*a)[1][4])
 
 		}
 	}
-    printf("\n");
-
 }
 
 int Char_to_ASCII(char *OBF, int size)
@@ -293,8 +291,6 @@ void MultiplyMatrix2(float (*a)[1][4])
 			Mutiplied_Matrix2[i][j]=sum;
 		}
 	}
-
-
 }
 
 int det3x3_ForDecode(int matrix[4][4], int i, int j)
@@ -407,7 +403,6 @@ int main() {
 
                 MultiplyMatrix(ary);
                 for(j=0; j<=3; j++){
-
                     final[l] = Mutiplied_Matrix[0][j];
                     final_count++;
                     position[l] = Row_Pos_Matrix[j];
@@ -445,14 +440,14 @@ int main() {
                 if((position+1)%5 != 0){
                     for(i=0; i<4; i++){
                         fscanf(Decode_file,"%f ",&Ciphertxt[row2_count][i]);
-                        printf("%f ",Ciphertxt[row2_count][i]);
+                        //printf("%f ",Ciphertxt[row2_count][i]);
                         word2_count++;
                         position++;
                     }
                 }else{
                     for(i=0; i<4; i++){
                         fscanf(Decode_file,"%1d",&Row_Code[row2_count][i]);
-                        printf("%d",Row_Code[row2_count][i]);
+                        //printf("%d",Row_Code[row2_count][i]);
                     }
                     row2_count++;
                     position++;
@@ -488,13 +483,13 @@ int main() {
                 }
             }
 
-            printf("Check decodematrix: \n");
-            for(j=0; j<=row2_count-1; j++){
+            //printf("Check decodematrix: \n");
+            /*for(j=0; j<=row2_count-1; j++){
                 for(i=0; i<=3; i++){
                     printf("%d ",Result_Matrix[j][i]);
                 }
                 printf("\n");
-            }
+            }*/
 
             k = 0;
             char ascToword[Size_of_Arrays];
@@ -506,12 +501,11 @@ int main() {
                         k++;
                 }
             }
-            printf("\nK= %d\n",k);
+           // printf("\nK= %d\n",k);
             for (i = 0; i < k; i++)
             {
-                printf("%c", ascToword[i]);
+                //printf("%c", ascToword[i]);
             }
-            printf("\n");
             fclose(Decode_file);
             decrypt(ascToword, decrypted_text); // (Array name of encrypted messages, Array name to store decrypted messages)
             printf("Decrypted Text: %s\n", decrypted_text);
