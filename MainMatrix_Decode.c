@@ -39,7 +39,7 @@ void MultiplyMatrix2(float (*a)[1][4])
         printf("%d ",(*a)[0][i]);
 
     }*/
-    printf("\n");
+    //printf("\n");
 	for(i=0; i<m; i++)
 		for(j=0; j<p; j++)
 			Mutiplied_Matrix2[i][j]=0;
@@ -228,6 +228,22 @@ int main(){
         printf("\n");
     }
 
+    k = 0;
+    char ascToword[4001];
+    for (j=0; j<=row2_count-1; j++)
+    {
+        for (i=0; i<=3; i++)
+        {
+                ascToword[k] = (char)Result_Matrix[j][i];
+                k++;
+        }
+    }
+    printf("\nK= %d\n",k);
+    for (i = 0; i < k; i++)
+    {
+        printf("%c", ascToword[i]);
+    }
+    printf("\n");
     fclose(file);
     //free(decode);
     return 0;
