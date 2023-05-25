@@ -25,23 +25,30 @@ void encrypt_recursive(FILE* file, int key, char* encrypted_text, int index) {
 }
 
 void encrypt(const char* input_filename, char* encrypted_text) {
-    printf("Opening file....\n");
+    printf("Opening file...\n");
     FILE* file = fopen(input_filename, "r");
     while (file == NULL) {
         file = fopen(input_filename, "r");
     }
-    printf("Open file complete.");
+    printf("Open file complete.\n");
 
     srand(time(NULL));
     int key = rand() % 9 + 1;
     encrypt_recursive(file, key, encrypted_text, 0);
 }
 
-int main() {
-    char input_filename[] = "Sample.txt";
-    char encrypted_text[10000];
+void decrypt(const char* encrypted_text, char* decrypted_text) {
+    int key = encrypted_text[strlen(encrypted_text) - 1] - '0';
 
-    encrypt(input_filename, encrypted_text);
-    printf("Encrypted Text: %s\n", encrypted_text);
-    return 0;
+    for (int i = 0; i < strlen(encrypted_text) - 1; i++) {
+        char ch = encrypted_text[i];
+        if (ch == ' ') {
+            decrypted_text[i] = ch;
+        } else {
+            ch -= key;
+            decrypted_text[i] = ch;
+        }
+    }
+
+    decrypted_text[strlen(encrypted_text) - 1] = '\0';
 }
