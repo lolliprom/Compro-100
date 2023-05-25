@@ -133,7 +133,7 @@ void generate_matrix(int (*x)[4][4]){
     }
 }
 
-int det3x3(int matrix[4][4], int i, int j)
+int det3x3_ForEncode(int matrix[4][4], int i, int j)
 {
     int submatrix[3][3];
     int k, l, row, col;
@@ -149,13 +149,13 @@ int det3x3(int matrix[4][4], int i, int j)
     return submatrix[0][0]*((submatrix[1][1]*submatrix[2][2])-(submatrix[2][1]*submatrix[1][2]))-submatrix[0][1]*(submatrix[1][0]*submatrix[2][2]-submatrix[2][0]*submatrix[1][2])+submatrix[0][2]*(submatrix[1][0]*submatrix[2][1]-submatrix[2][0]*submatrix[1][1]);
 }
 
-int det4x4(int matrix[4][4])
+int det4x4_ForEncode(int matrix[4][4])
 {
     int det=0;
     int j;
     for (j=0;j<4;j++)
     {
-        det += matrix[0][j]*(j%2==0 ? 1:-1)*det3x3(matrix,0,j);
+        det += matrix[0][j]*(j%2==0 ? 1:-1)*det3x3_ForEncode(matrix,0,j);
     }
     return det;
 }
@@ -297,7 +297,7 @@ void MultiplyMatrix2(float (*a)[1][4])
 
 }
 
-int det3x3(int matrix[4][4], int i, int j)
+int det3x3_ForDecode(int matrix[4][4], int i, int j)
 
 {
     int submatrix[3][3];
@@ -325,7 +325,7 @@ void adjointcal(int matrix[4][4])
     {
         for(j=0; j<4; j++)
         {
-            cofactor= ((i+j)%2==0 ? 1:-1)*det3x3(matrix,i,j);
+            cofactor= ((i+j)%2==0 ? 1:-1)*det3x3_ForDecode(matrix,i,j);
             matrixBeforetranspose[i][j]= cofactor;
         }
     }
@@ -338,15 +338,15 @@ void adjointcal(int matrix[4][4])
     }
 }
 
-void det4x4(int matrix[4][4])
+void det4x4_ForDecode(int matrix[4][4])
 {
     int det=0;
     int j;
     for (j=0; j<4; j++)
     {
-        detSum += matrix[0][j]*(j%2==0 ? 1:-1)*det3x3(matrix,0,j);
+        detSum += matrix[0][j]*(j%2==0 ? 1:-1)*det3x3_ForDecode(matrix,0,j);
     }
-    return det;
+    //return det;
 }
 
 void inverseCal(int adjoint[4][4])
@@ -394,7 +394,7 @@ int main() {
                 while(Determinant == 0){
                     p = &Generator_Matrix;
                     generate_matrix(p);
-                    Determinant = det4x4(Generator_Matrix);
+                    Determinant = det4x4_ForEncode(Generator_Matrix);
 
                 }
                 Find_Row_Pos(Generator_Matrix);
@@ -468,7 +468,7 @@ int main() {
 
 
             for(k=0; k<=row2_count-1; k++){
-                detSum =0;
+                detSum = 0;
                 Create_FBFMatrix();
                 //printf("1 by 4 Matrix is:");
                 for(j=0; j<=3; j++){
@@ -477,7 +477,7 @@ int main() {
                 }
                 //printf("\n");
 
-                det4x4(FBFMatrix);
+                det4x4_ForDecode(FBFMatrix);
                 //printf("Determinant of the matrix is %d",detSum);
                 adjointcal(FBFMatrix);
                 inverseCal(adjoint);
@@ -497,7 +497,7 @@ int main() {
             }
 
             k = 0;
-            char ascToword[4001];
+            char ascToword[Size_of_Arrays];
             for (j=0; j<=row2_count-1; j++)
             {
                 for (i=0; i<=3; i++)
@@ -513,21 +513,14 @@ int main() {
             }
             printf("\n");
             fclose(Decode_file);
-            decrypt(encrypted_text, decrypted_text); // (Array name of encrypted messages, Array name to store decrypted messages)
-            printf("Decrypted Text: %s\n", decrypted_text);
+            //decrypt(encrypted_text, decrypted_text); // (Array name of encrypted messages, Array name to store decrypted messages)
+            //printf("Decrypted Text: %s\n", decrypted_text);
             break;
         }
         else{
             printf("Type only 1 or 2!\n");
         }
     }
-  
-
-    
-
-   
-
-   
 
     return 0;
 }
