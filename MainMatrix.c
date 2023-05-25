@@ -126,7 +126,6 @@ void ASCII_to_Matrix(int rowsize, int size)
 }
 
 void generate_matrix(int (*x)[4][4]){
-    srand(time(NULL));
 
     for (int i=0;i<4;i++){
         int r = rand()%8;
@@ -185,7 +184,7 @@ int main(){
 	count_row = Char_to_ASCII(&Cipher1[0],strlen(Cipher1));
 	ASCII_to_Matrix(count_row,strlen(Cipher1));
 
-
+    srand(time(NULL));
     int Determinant;
     int (*p)[4][4];
     int *final = malloc(sizeof(int)*Size_of_Arrays);
