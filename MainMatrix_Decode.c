@@ -15,13 +15,13 @@ int Result_Matrix[1000][4];
 int i,j,k,FBF_count=0;
 
 void Create_FBFMatrix(){
-    printf("FBFMatrix %d:\n",FBF_count+1);
+    //printf("FBFMatrix %d:\n",FBF_count+1);
     for(j=0; j<=3; j++){
         for(i=0; i<=3; i++){
             FBFMatrix[j][i] = setofnumbers[Row_Code[FBF_count][j]][i];
-            printf("%d",FBFMatrix[j][i]);
+            //printf("%d",FBFMatrix[j][i]);
         }
-        printf("\n");
+       // printf("\n");
     }
     FBF_count++;
 }
@@ -54,10 +54,10 @@ void MultiplyMatrix2(float (*a)[1][4])
 				sum = sum+((*a)[i][h])*Inverse[h][j]; //check variable type for operation ด้วย
 			}
 			Mutiplied_Matrix2[i][j]=sum;
-            printf("%f ",Mutiplied_Matrix2[i][j]); //check multiplication
+            //printf("%f ",Mutiplied_Matrix2[i][j]); //check multiplication
 		}
 	}
-    printf("\n");
+   // printf("\n");
 
 }
 
@@ -114,7 +114,7 @@ void adjointcal(int matrix[4][4])
             adjoint[i][j]=matrixBeforetranspose[j][i];
         }
     }
-    printf("\nAdjoint matrix is:\n");
+    /*printf("\nAdjoint matrix is:\n");
     for (i = 0; i < 4; i++)
     {
         for (j = 0; j < 4; j++)
@@ -122,7 +122,7 @@ void adjointcal(int matrix[4][4])
             printf("%d ", adjoint[i][j]);
         }
         printf("\n");
-    }
+    }*/
 }
 
 void det4x4(int matrix[4][4])
@@ -150,7 +150,7 @@ void inverseCal(int adjoint[4][4])
             //printf("\nadjoint: %d det: %d",adjoint[row][column],detSum);
         }
     }
-    printf("\nInverse matrix is:\n");
+    /*printf("\nInverse matrix is:\n");
     for (row = 0; row < 4; row++)
     {
         for (column = 0; column < 4; column++)
@@ -158,13 +158,13 @@ void inverseCal(int adjoint[4][4])
             printf("%10f ", Inverse[row][column]);
         }
         printf("\n");
-    }
+    }*/
 }
 
 int main(){
     FILE *file;
     file = fopen("Ciphereiei.txt","r");
-    int word2_count=0,row2_count=0,pos=0;
+    int word2_count=0,row2_count=0,position=0;
     //float *decode = malloc(sizeof(float)*word2_count);
 
     if(file == NULL){
@@ -174,12 +174,12 @@ int main(){
 
     printf("Cipher: ");
     while(!feof(file)){
-        if((pos+1)%5 != 0){
+        if((position+1)%5 != 0){
             for(i=0; i<4; i++){
                 fscanf(file,"%f ",&Ciphertxt[row2_count][i]);
                 printf("%f ",Ciphertxt[row2_count][i]);
                 word2_count++;
-                pos++;
+                position++;
             }
         }else{
             for(i=0; i<4; i++){
@@ -187,7 +187,7 @@ int main(){
             	printf("%d",Row_Code[row2_count][i]);
             }
 			row2_count++;
-			pos++;
+			position++;
             printf(" ");	  
         }
     }
@@ -212,21 +212,20 @@ int main(){
     for(k=0; k<=row2_count-1; k++){
         detSum =0;
         Create_FBFMatrix();
-        printf("1 by 4 Matrix is:");
+        //printf("1 by 4 Matrix is:");
         for(j=0; j<=3; j++){
             arr2[0][j] = Ciphertxt[k][j];
-            printf("%f ", arr2[0][j]);
+            //printf("%f ", arr2[0][j]);
         }
-        printf("\n");
+        //printf("\n");
 
         det4x4(FBFMatrix);
-        printf("Determinant of the matrix is %d",detSum);
+        //printf("Determinant of the matrix is %d",detSum);
         adjointcal(FBFMatrix);
         inverseCal(adjoint);
-        printf("ResultMatrix: ");
+        //printf("ResultMatrix: ");
         MultiplyMatrix2(ary2);
         for(i=0; i<=3; i++){
-            //decode[k][i] = Mutiplied_Matrix2[0][i];
             Result_Matrix[k][i] = (int)round(Mutiplied_Matrix2[0][i]);
         }
     }
@@ -238,8 +237,6 @@ int main(){
         }
         printf("\n");
     }
-
-    
 
     fclose(file);
     //free(decode);
