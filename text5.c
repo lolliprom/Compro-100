@@ -142,10 +142,10 @@ void MultiplyMatrix(int (*a)[1][4])
     int sum=0,i,j,h;
 
     for(i=0; i<4; i++){
-        //printf("%d ",(*a)[0][i]);
+        printf("%d ",(*a)[0][i]);
 
     }
-    //printf("\n");
+    printf("\n");
 	for(i=0; i<m; i++)
 		for(j=0; j<p; j++)
 			Mutiplied_Matrix[i][j]=0;
@@ -163,7 +163,7 @@ void MultiplyMatrix(int (*a)[1][4])
 
 		}
 	}
-    //printf("\n");
+    printf("\n");
 
 }
 
@@ -188,13 +188,13 @@ int Char_to_ASCII(char *OBF, int size)
 		OBF++;
 	}
 	
-	/*printf("ASCII -> ");
+	printf("ASCII -> ");
 	for(i=0; i<size; i++)
 	{
 		printf("%c:",x.character[i]);
 		printf("%d ",x.ascno[i]);
 	}
-	printf("\n");*/
+	printf("\n");
 	return count;
 }
 
@@ -231,14 +231,14 @@ void ASCII_to_Matrix(int rowsize, int size)
 		}
 	}
 	
-	/*for(i=0;i<=rowsize; i++)
+	for(i=0;i<=rowsize; i++)
 	{
 	
 		for(j=0;j<=3; j++)
 		{
 			printf("Array[%d][%d] = %d\n",i,j,OBFMatrix[i][j]);
 		}
-	}*/
+	}
 }
 
 void generate_matrix(int (*x)[4][4]){
@@ -292,13 +292,13 @@ void Find_Row_Pos(int matrix[4][4]){
 
 
 void Create_FBFMatrix(){
-    //printf("FBFMatrix %d:\n",FBF_count+1);
+    printf("FBFMatrix %d:\n",FBF_count+1);
     for(j=0; j<=3; j++){
         for(i=0; i<=3; i++){
             FBFMatrix[j][i] = setofnumbers[Row_Code[FBF_count][j]][i];
-            //printf("%d",FBFMatrix[j][i]);
+            printf("%d",FBFMatrix[j][i]);
         }
-       // printf("\n");
+        printf("\n");
     }
     FBF_count++;
 }
@@ -312,11 +312,11 @@ void MultiplyMatrix2(float (*a)[1][4])
     int h;
     float sum = 0;
 
-    /*for(i=0; i<4; i++){
-        printf("%d ",(*a)[0][i]);
+    for(i=0; i<4; i++){
+        //printf("%d ",(*a)[0][i]);
 
-    }*/
-    //printf("\n");
+    }
+    printf("\n");
 	for(i=0; i<m; i++)
 		for(j=0; j<p; j++)
 			Mutiplied_Matrix2[i][j]=0;
@@ -331,10 +331,10 @@ void MultiplyMatrix2(float (*a)[1][4])
 				sum = sum+((*a)[i][h])*Inverse[h][j]; //check variable type for operation ด้วย
 			}
 			Mutiplied_Matrix2[i][j]=sum;
-            //printf("%f ",Mutiplied_Matrix2[i][j]); //check multiplication
+            printf("%f ",Mutiplied_Matrix2[i][j]); //check multiplication
 		}
 	}
-    //printf("\n");
+    printf("\n");
 
 }
 
@@ -427,7 +427,7 @@ void inverseCal(int adjoint[4][4])
             //printf("\nadjoint: %d det: %d",adjoint[row][column],detSum);
         }
     }
-    /*printf("\nInverse matrix is:\n");
+    printf("\nInverse matrix is:\n");
     for (row = 0; row < 4; row++)
     {
         for (column = 0; column < 4; column++)
@@ -435,7 +435,7 @@ void inverseCal(int adjoint[4][4])
             printf("%10f ", Inverse[row][column]);
         }
         printf("\n");
-    }*/
+    }
 }
 
 
@@ -449,7 +449,7 @@ int main() {
         if(process == 1){
             CreatTextFile();
             encrypt(filename, encrypted_text); // (Enter file name to encrypt here, Array name to store encrypted messages)
-            //printf("Encrypted Text: %s\n", encrypted_text);
+            printf("Encrypted Text from ASCII shift: %s\n", encrypted_text);
             
             //char Cipher1[Size_of_Arrays];
             int count_row;
@@ -473,7 +473,7 @@ int main() {
                     generate_matrix(p);
                     Determinant = det4x4_ForEncode(Generator_Matrix);
 
-                    /*printf("\n4x4 Matrix is:\n");
+                    printf("\n4x4 Matrix is:\n");
                     for (int i=0;i<4;i++){
                         for (int j=0;j<4;j++){
                         printf("%d",Generator_Matrix[i][j]);
@@ -481,14 +481,14 @@ int main() {
                     printf("\n");
                     }
                 printf("Determinant is %d",Determinant);
-                }*/
                 }
+                
                 //find row position of matrix
                 Find_Row_Pos(Generator_Matrix);
-                /*printf("\nRow position:\n");
+                printf("\nRow position:\n");
                 for(i=0;i<=3;i++){
                     printf("%d:%d\n",i,Row_Pos_Matrix[i]);
-                }*/
+                }
                 //create array 1x4 for multiplying
 
                 int (*ary)[1][4];
@@ -499,15 +499,15 @@ int main() {
                 }
 
                 MultiplyMatrix(ary);
-                //printf("Cipher for array is :");
+                printf("Cipher for array is :");
                 for(j=0; j<=3; j++){
-                    //printf("%d ",Mutiplied_Matrix[0][j]);
+                    printf("%d ",Mutiplied_Matrix[0][j]);
                     final[l] = Mutiplied_Matrix[0][j];
                     final_count++;
                     position[l] = Row_Pos_Matrix[j];
                     l++;
                 }
-                //printf("%d%d%d%d\n",Row_Pos_Matrix[0],Row_Pos_Matrix[1],Row_Pos_Matrix[2],Row_Pos_Matrix[3]);
+                printf("%d%d%d%d\n",Row_Pos_Matrix[0],Row_Pos_Matrix[1],Row_Pos_Matrix[2],Row_Pos_Matrix[3]);
                 
             }
 
@@ -529,6 +529,7 @@ int main() {
             free(final);
             free(position);
             //if(menu == 1){continue;}
+            break;
         }
     
 
@@ -545,61 +546,62 @@ int main() {
                 return 1;
             }
 
-            //printf("Cipher: ");
+            printf("Cipher: ");
             while(!feof(file)){
                 if((position+1)%5 != 0){
                     for(i=0; i<4; i++){
                         fscanf(file,"%f ",&Ciphertxt[row2_count][i]);
-                        //printf("%f ",Ciphertxt[row2_count][i]);
+                        printf("%f ",Ciphertxt[row2_count][i]);
                         word2_count++;
                         position++;
                     }
                 }else{
                     for(i=0; i<4; i++){
                         fscanf(file,"%1d",&Row_Code[row2_count][i]);
-                        //printf("%d",Row_Code[row2_count][i]);
+                        printf("%d",Row_Code[row2_count][i]);
                     }
                     row2_count++;
                     position++;
-                    //printf(" ");	  
+                    printf(" ");	  
                 }
             }
-            //printf("\n");
+            printf("\n");
 
             float (*ary2)[1][4];
             ary2 = &arr2;
             int x = row2_count;
-            //int Result_Matrix[1000][4];
+            int Result_Matrix[1000][4];
 
 
             for(k=0; k<=row2_count-1; k++){
                 detSum =0;
                 Create_FBFMatrix();
-                //printf("1 by 4 Matrix is:");
+                printf("1 by 4 Matrix is:");
                 for(j=0; j<=3; j++){
                     arr2[0][j] = Ciphertxt[k][j];
-                    //printf("%f ", arr2[0][j]);
+                    printf("%f ", arr2[0][j]);
                 }
-                //printf("\n");
+                printf("\n");
 
                 det4x4(FBFMatrix);
-                //printf("\nDeterminant of the matrix is %d\n",detSum);
+                printf("Determinant of the matrix is %d",detSum);
                 adjointcal(FBFMatrix);
                 inverseCal(adjoint);
-                //printf("ResultMatrix: ");
+                printf("ResultMatrix is: ");
                 MultiplyMatrix2(ary2);
+                printf("\n\n");
                 for(i=0; i<=3; i++){
                     Result_Matrix[k][i] = (int)round(Mutiplied_Matrix2[0][i]);
                 }
             }
 
-            /*printf("Check decodematrix: \n");
+            printf("Check decodematrix by multiply inverse: \n");
             for(j=0; j<=row2_count-1; j++){
                 for(i=0; i<=3; i++){
                     printf("%d ",Result_Matrix[j][i]);
                 }
                 printf("\n");
-            }*/
+            }
 
             k = 0;
             char ascToword[4001];
@@ -612,14 +614,15 @@ int main() {
                 }
             }
             //printf("\nK= %d\n",k);
-            /*for (i = 0; i < k; i++)
+            printf("Before shift ASCII:");
+            for (i = 0; i < k; i++)
             {
                 printf("%c", ascToword[i]);
-            }*/
+            }
             printf("\n");
             fclose(file);
             decrypt(ascToword, decrypted_text); // (Array name of encrypted messages, Array name to store decrypted messages)
-            printf("Plainttext is (Decrypted Text): %s\n", decrypted_text);
+            printf("Plainttext is (After shift ASCII): %s\n", decrypted_text);
             //free(decode);
             break;     
         }
@@ -627,6 +630,9 @@ int main() {
         else{
             printf("Please enter 1 or 2!\n\n");
         }
+        
     }
-    return 0;
+        return 0;
 }
+    
+
