@@ -181,7 +181,7 @@ int Create_Menu(){
     return action;
 }
 
-int CreatTextFile(){
+int FindTextfile(){
     FILE *fptr;
     //char filename[100];
     char *message;
@@ -371,7 +371,7 @@ int main() {
     while(condition == 0){
         procedure = Create_Menu();
         if(procedure==1){
-            CreatTextFile();
+            FindTextfile();
             encrypt(filename, encrypted_text); // (Enter file name to encrypt here, Array name to store encrypted messages)
             //printf("Encrypted Text: %s\n", encrypted_text);
             
@@ -434,7 +434,7 @@ int main() {
         //decode process below here
 
         else if(procedure==2){
-            CreatTextFile();
+            FindTextfile();
             float Ciphertxt[Size_of_Arrays/4][4];
             int word2_count=0,row2_count=0,position=0;
             

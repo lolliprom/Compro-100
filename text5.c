@@ -51,7 +51,7 @@ float arr2[1][4];//already had in Matrix_encode
 int Result_Matrix[Size_of_Arrays][4];
 int i,j,k,FBF_count=0;
 
-int CreatTextFile(){
+int FindTextfile(){
     FILE *fptr;
     //char filename[100];
     char *message;
@@ -447,7 +447,7 @@ int main() {
     while(condition == 0){
         process = Create_Menu();
         if(process == 1){
-            CreatTextFile();
+            FindTextfile();
             encrypt(filename, encrypted_text); // (Enter file name to encrypt here, Array name to store encrypted messages)
             printf("Encrypted Text from ASCII shift: %s\n", encrypted_text);
             
@@ -535,7 +535,7 @@ int main() {
 
         //decodeing process
         else if(process == 2){
-            CreatTextFile();
+            FindTextfile();
             FILE *file;
             file = fopen(filename,"r");
             int word2_count=0,row2_count=0,position=0;

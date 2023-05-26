@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-int CreatTextFile(){
+int FindTextfile(){
     FILE *fptr;
     char filename[100];
     char *message;
@@ -31,5 +31,5 @@ int CreatTextFile(){
 }
 
 int main(){
-    CreatTextFile();
+    FindTextfile();
 }
