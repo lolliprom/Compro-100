@@ -21,12 +21,32 @@ int arr[1][4];
 int i,j,k,l=0,swap,final_count=0;
 
 int Create_Menu(){
-    int action;
-    printf("Welcome to KODTUENG CRYTOGRAPHY, choose what you want to do:\n");
+    // int action, check;
+    // printf("==============================================================\n");
+    // printf("=             Welcome to KODTUENG CRYTOGRAPHY                =\n");
+    // printf("==============================================================\n");
+    // printf("Choose what you want to do:\n");
+    // printf("1.Encode\n2.Decode\n");
+    // printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    // printf("Type 1 or 2:");
+    // scanf("%d",&action);
+    // return action;
+
+    int action, check;
+  do{
+    printf("==============================================================\n");
+    printf("=             Welcome to KODTUENG CRYTOGRAPHY                =\n");
+    printf("==============================================================\n");
+    printf("Choose what you want to do:\n");
     printf("1.Encode\n2.Decode\n");
+    printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("Type 1 or 2:");
-    scanf("%d",&action);
-    return action;
+    check = scanf("%d",&action);
+    while (getchar() != '\n');
+    if(check != 1) printf("Invalid input. Please enter an integer.\n\n");
+    else return action;
+    
+  }while(check != 1);
 }
 
 
@@ -616,7 +636,7 @@ int main() {
         }
 
         else{
-            printf("\nType only 1 or 2!\n");
+            printf("\nPlease enter 1 or 2!\n\n");
         }
     }
 
