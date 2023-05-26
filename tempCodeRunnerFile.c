@@ -1,1 +1,1 @@
-if(process == 1
+process = Create_Menu()

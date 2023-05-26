@@ -4,7 +4,7 @@
 #include <math.h>
 #include <time.h>
 #define Size_of_Arrays 10000
-
+int menu;
 char filename[100];
 
 struct ASCII //character and it's ASCII value.
@@ -21,16 +21,6 @@ int arr[1][4];
 int i,j,k,l=0,swap,final_count=0;
 
 int Create_Menu(){
-    // int action, check;
-    // printf("==============================================================\n");
-    // printf("=             Welcome to KODTUENG CRYTOGRAPHY                =\n");
-    // printf("==============================================================\n");
-    // printf("Choose what you want to do:\n");
-    // printf("1.Encode\n2.Decode\n");
-    // printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    // printf("Type 1 or 2:");
-    // scanf("%d",&action);
-    // return action;
 
     int action, check;
   do{
@@ -66,10 +56,12 @@ int CreatTextFile(){
     //char filename[100];
     char *message;
 
-    printf("Enter the name of the file: ");
+    printf("Enter the name of file that store data for encode/decode: ");
     scanf("%s", filename);
 
-    printf("Enter the message to be written to the file: ");
+    strcat(filename, ".txt");
+
+    /*printf("Enter the message to be written to the file: ");
     message = (char*) malloc(1000 * sizeof(char));
     scanf(" %[^\n]", message);
 
@@ -84,7 +76,7 @@ int CreatTextFile(){
     fclose(fptr);
     printf("----File written successfully.----\n");
 
-    free(message);
+    free(message);*/
 
     return 0;
 }
@@ -448,6 +440,8 @@ void inverseCal(int adjoint[4][4])
 
 
 int main() {
+    int repeatchoice;
+    do{
     int condition = 0,process = 0;
     char encrypted_text[Size_of_Arrays]; // Array declaration for store encrypted messages
     char decrypted_text[Size_of_Arrays]; // Array declaration for store decrypted messages
@@ -532,13 +526,11 @@ int main() {
                     printf(" ");
                 }
             }
+            //printf("\n\nType 1 to go back to menu: \n");
+            //scanf("%d",&menu);
             free(final);
             free(position);
-            return 0;
-
-
-
-            break;
+            //if(menu == 1){continue;}
         }
     
 
@@ -636,10 +628,18 @@ int main() {
         }
 
         else{
-            printf("\nPlease enter 1 or 2!\n\n");
+            printf("Please enter 1 or 2!\n\n");
         }
-    }
 
+        printf("Do you want to repeat the program?\nYes type 1, Exit the program type 0");
+        scanf("%d",&repeatchoice);
+
+        /*int menu;
+        printf("\n\nType 1 to go back to menu: \n");
+        scanf("%d",&menu);
+        if(menu != 1){break;}*/
+    }} while(repeatchoice==1);
     return 0;
+
 }
 
